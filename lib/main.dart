@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // for email validation
   // String emailValidate(val) {
   //   if (val.isEmpty) {
   //     return 'Required';
@@ -40,7 +41,8 @@ class _HomePageState extends State<HomePage> {
   //     return null;
   //   }
   // }
-  //
+
+  // for password validation
   // String pwdValidate(val) {
   //   if (val.isEmpty) {
   //     return 'Required';
