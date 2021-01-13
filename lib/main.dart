@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,23 +33,23 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  String emailValidate(val) {
-    if (val.isEmpty) {
-      return 'Required';
-    } else {
-      return null;
-    }
-  }
-
-  String pwdValidate(val) {
-    if (val.isEmpty) {
-      return 'Required';
-    } else if (val.length < 6) {
-      return 'Minimum 6 Required';
-    } else {
-      return null;
-    }
-  }
+  // String emailValidate(val) {
+  //   if (val.isEmpty) {
+  //     return 'Required';
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  //
+  // String pwdValidate(val) {
+  //   if (val.isEmpty) {
+  //     return 'Required';
+  //   } else if (val.length < 6) {
+  //     return 'Minimum 6 Required';
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,13 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 TextFormField(
-                  validator: emailValidate,
+                  // validator: emailValidate,
+                  // validator: EmailValidator(errorText: 'Not Valid'),
+                  // To add multi validator we pass list as below
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'Required'),
+                    EmailValidator(errorText: 'Not Valid')
+                  ]),
                   cursorColor: Colors.black,
                   style: TextStyle(fontSize: 18.0, color: Colors.black),
                   decoration: InputDecoration(
@@ -84,7 +91,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  validator: pwdValidate,
+                  // validator: pwdValidate,
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'Required'),
+                    MinLengthValidator(6, errorText: 'Minimum 6 Required')
+                  ]),
                   cursorColor: Colors.black,
                   style: TextStyle(fontSize: 18.0, color: Colors.black),
                   decoration: InputDecoration(
@@ -103,7 +114,10 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(top: 20.0),
                   child: RaisedButton(
                     onPressed: validate,
-                    child: Text('Login'),
+                    color: Colors.orangeAccent,
+                    child: Text('Login', style: TextStyle(fontSize: 17.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
                   ),
                 )
               ],
