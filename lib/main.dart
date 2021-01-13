@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.orange),
       home: HomePage(),
     );
   }
@@ -29,7 +30,42 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: EdgeInsets.all(25.0),
         child: Center(
-          child: Form(),
+          child: Form(
+            child: Column(
+              children: [
+                TextFormField(
+                  cursorColor: Colors.black,
+                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.account_circle),
+                    labelText: 'Username or Email',
+                    labelStyle: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  cursorColor: Colors.black,
+                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.vpn_key),
+                    labelText: 'Password',
+                    labelStyle: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: RaisedButton(
+                    onPressed: () {},
+                    child: Text('Login'),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
