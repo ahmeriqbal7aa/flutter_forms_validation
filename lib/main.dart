@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.orange),
+      theme: ThemeData(primaryColor: Colors.orange),
       home: HomePage(),
     );
   }
@@ -20,8 +20,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // TODO Create Global Key
   // create GlobalKey for "Form" of "FormState" type
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // TODO Create Functions
   void validate() {
     if (formKey.currentState.validate()) {
       print('OK');
@@ -30,9 +32,28 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  String emailValidate(val) {
+    if (val.isEmpty) {
+      return 'Required';
+    } else {
+      return null;
+    }
+  }
+
+  String pwdValidate(val) {
+    if (val.isEmpty) {
+      return 'Required';
+    } else if (val.length < 6) {
+      return 'Minimum 6 Required';
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         centerTitle: true,
         title: Text('Flutter Forms and Validation'),
@@ -41,20 +62,19 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.all(25.0),
         child: Center(
           child: Form(
+            autovalidate: true,
             key: formKey,
             child: Column(
               children: [
                 TextFormField(
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return 'Required';
-                    } else {
-                      return null;
-                    }
-                  },
+                  validator: emailValidate,
                   cursorColor: Colors.black,
-                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  style: TextStyle(fontSize: 18.0, color: Colors.black),
                   decoration: InputDecoration(
+                    fillColor: Colors.orange.withOpacity(0.1),
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     prefixIcon: Icon(Icons.account_circle),
                     labelText: 'Username or Email',
                     labelStyle: TextStyle(
@@ -64,16 +84,14 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return 'Required';
-                    } else {
-                      return null;
-                    }
-                  },
+                  validator: pwdValidate,
                   cursorColor: Colors.black,
-                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  style: TextStyle(fontSize: 18.0, color: Colors.black),
                   decoration: InputDecoration(
+                    fillColor: Colors.orange.withOpacity(0.1),
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     prefixIcon: Icon(Icons.vpn_key),
                     labelText: 'Password',
                     labelStyle: TextStyle(
