@@ -20,6 +20,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // create GlobalKey for "Form" of "FormState" type
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  void validate() {
+    if (formKey.currentState.validate()) {
+      print('OK');
+    } else {
+      print('Error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +41,17 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.all(25.0),
         child: Center(
           child: Form(
+            key: formKey,
             child: Column(
               children: [
                 TextFormField(
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Required';
+                    } else {
+                      return null;
+                    }
+                  },
                   cursorColor: Colors.black,
                   style: TextStyle(fontSize: 18.0, color: Colors.white),
                   decoration: InputDecoration(
@@ -46,6 +64,13 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Required';
+                    } else {
+                      return null;
+                    }
+                  },
                   cursorColor: Colors.black,
                   style: TextStyle(fontSize: 18.0, color: Colors.white),
                   decoration: InputDecoration(
@@ -59,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: validate,
                     child: Text('Login'),
                   ),
                 )
